@@ -7,10 +7,11 @@
 # Version: 1.0.0 Noviembre 2022
 # Descripción:
 #
-#   Este archivo define las consultas que permiten obtener información 
+#   Este archivo define las consultas que permiten obtener información
 #   y realizar el llenado de datos del tablero
 #
 #-------------------------------------------------------------------------
+
 class Queries:
 
     @staticmethod
@@ -148,10 +149,38 @@ class Queries:
                 var(func: has(description)) {
                     c as count(bought) 
                 }
-                    
+
                 response(func: has(description), orderdesc: val(c)){
                     description
                     times: val(c)
                 }
             }
         """
+
+    @staticmethod
+    def get_most_selled_products_for_date(start_date,end_date):
+        return '''
+            {
+                var(func: has(invoice)) @filter(ge(date, "'''+start_date+'''") AND le(date, "'''+end_date+'''")) {
+                    product as ~bought
+                }
+
+                var(func: uid(product)) {
+                    purchasedProduct as uid
+                }
+
+                var(func: has(description)) {
+                    c as count(bought)
+                }
+
+                topProduct(func: uid(purchasedProduct), orderdesc: val(c)) @cascade {
+                    description
+                    times: val(c)
+                }
+            }
+        '''
+
+
+
+
+

@@ -40,6 +40,7 @@ class CSVTransformer(luigi.Task):
                             "price": entry["rawprice"],
                             "total": float(entry["qty"]) * float(entry["rawprice"]),
                             "invoice": entry["inv"],
+                            "date": entry["InvoiceDate"],
                             "provider": entry["provider"],
                             "country": entry["countryname"]
                         }

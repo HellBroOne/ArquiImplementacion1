@@ -70,3 +70,19 @@ class Repository:
     def get_most_selled_products():
         response = Provider.execute(Queries.get_most_selled_products())
         return response
+
+    """@staticmethod
+    def get_most_selled_products_for_date(date_from, date_to):
+        response = Provider.execute(Queries.get_most_selled_products_for_date(date_from, date_to))
+        return response"""
+
+    @staticmethod
+    def get_most_selled_products_for_date(fecha_inicio, fecha_fin):
+        response = Provider.execute(Queries.get_most_selled_products_for_date(fecha_inicio, fecha_fin))
+        print(response)
+        return response
+
+    """@staticmethod
+    def get_all_products():
+        response = Provider.execute(Queries.get_all_products())
+        return response"""

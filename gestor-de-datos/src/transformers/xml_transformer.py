@@ -34,6 +34,7 @@ class XMLTransformer(luigi.Task):
                             "price": row.find('current_price').text,
                             "total": float(row.find('product_qty').text) * float(row.find('current_price').text),
                             "invoice": row.find('order_inv').text,
+                            "date": row.find('date_inv').text,
                             "provider": row.find('provider_identifier').text,
                             "country": row.find('country_loc').text
                         }

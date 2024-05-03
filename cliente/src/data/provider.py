@@ -13,7 +13,7 @@
 #-------------------------------------------------------------------------
 import requests
 
-host = "http://dgraph"
+host = "http://localhost"
 port = "8080"
 
 class Provider:

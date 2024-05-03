@@ -25,8 +25,8 @@ class Dashboard:
         return dbc.Container(
             fluid = True,
             children = [
+                self._navbar(),
                 html.Br(),
-                self._header_title("Sales Report"),
                 html.Div(html.Hr()),
                 self._header_subtitle("Sales summary financial report"),
                 html.Br(),
@@ -102,6 +102,19 @@ class Dashboard:
                 ),
                 html.Br(),
             ]
+        )
+
+    def _navbar(self):
+        return dbc.NavbarSimple(
+            children=[
+                dbc.NavItem(dbc.NavLink("Home", href="/")),
+                dbc.NavItem(dbc.NavLink("Most Selled Products For Date", href="/most-selled-products")),
+                # Puedes agregar más enlaces al menú aquí
+            ],
+            brand="Sales Report",
+            brand_href="#",
+            color="ligth",
+            dark=False,
         )
 
     def _header_title(self, title):

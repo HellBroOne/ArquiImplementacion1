@@ -10,8 +10,7 @@
 #   el contenido de un archivo txt
 #-------------------------------------------------------------------------
 
-import luigi
-import os
+import luigi, os
 from os.path import isfile, join
 from src.readers.zip_reader import ZIPReader
 

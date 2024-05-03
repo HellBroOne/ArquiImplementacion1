@@ -36,6 +36,7 @@ class HTMTransformer(luigi.Task):
                             "price": entry["product_price"],
                             "total": float(entry["Qty"]) * float(entry["product_price"]),
                             "invoice": entry["order_invoice"],
+                            "date": entry["date_invoice"],
                             "provider": entry["id_provider"],
                             "country": entry["country_location"]
                         }

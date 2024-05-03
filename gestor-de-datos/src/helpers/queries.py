@@ -7,12 +7,14 @@ class Queries:
             type Product {
                 description
                 quantity
+                date
                 price
                 bought
             }
 
             type Order {
                 total
+                date
                 invoice
             }
 
@@ -204,3 +206,26 @@ class Queries:
                 }
             }
         """ % (name)
+
+    @staticmethod
+    def create_date(date):
+        return f"""
+            {{
+                create_date(func: eq(date, "{date}")) {{
+                    uid
+                }}
+            }}
+        """
+    
+    @staticmethod
+    def add_date_relation(order_uid, date_uid):
+        return f"""
+            {{
+                add_date_relation(func: uid({order_uid})) {{
+                    date
+                    ~order {{
+                        uid
+                    }}
+                }}
+            }}
+        """

@@ -48,7 +48,7 @@ class Loader(luigi.Task):
                     if not location:
                         mutation_res = Provider.perform_mutate(Queries.create_location(p["country"]))
                         location = Processor.extract_created_uid(mutation_res, "location")
-                    
+
                     # provider
                     prov_query_res = Provider.perform_query(Queries.query_pid(p["provider"]))
                     provider = Processor.extract_query_uid(prov_query_res)
@@ -69,7 +69,7 @@ class Loader(luigi.Task):
                         date = Processor.compute_random_date()
                         mutation_res = Provider.perform_mutate(Queries.create_order(p["invoice"], p["quantity"], p["total"], date))
                         order = Processor.extract_created_uid(mutation_res, "order")
-                    
+
                     # product
                     prod_query_res = Provider.perform_query(Queries.query_desc(p["description"]))
                     product = Processor.extract_query_uid(prod_query_res)
@@ -88,6 +88,7 @@ class Loader(luigi.Task):
                     relations = Processor.extract_relation_uids(prod_prov_query_res, "sold")
                     if not provider in relations:
                         Provider.perform_mutate(Queries.add_sold_relation(product, provider))
+
             print(f"...file {json_file.name} processed\n")
 
         with self.output().open('w') as f:
