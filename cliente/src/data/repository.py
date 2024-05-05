@@ -20,7 +20,7 @@ class Repository:
     @staticmethod
     def get_productos_porFecha1y2(start_period, end_period):
         response = Provider.execute(Queries.get_productos_porFecha1y2(start_period, end_period))
-        return responses
+        return response
 
     @staticmethod
     def get_products():

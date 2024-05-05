@@ -25,7 +25,7 @@ class Queries:
                         count: sum(val(t))
                     }
                 }
-            """ % (start_period, end_period))
+            """ % (start_period, end_period)
 
     @staticmethod
     def get_total_products():
