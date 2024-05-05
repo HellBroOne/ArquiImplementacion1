@@ -18,7 +18,7 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 
-from ArquiImplementacion1.cliente.src.controller.dashboard_controller import DashboardController
+from src.controller.dashboard_controller import DashboardController
 
 app = dash.Dash(
     external_stylesheets=[dbc.themes.LUX],

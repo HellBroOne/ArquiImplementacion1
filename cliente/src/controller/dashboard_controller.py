@@ -235,28 +235,7 @@ class DashboardController:
             })
         return result
 
-    """@staticmethod
-    def load_most_selled_products_for_date(date_from, date_to):
-        response = Repository.get_most_selled_products_for_date(date_from, date_to)
-        if response is None or response.status_code != 200:
-            return []
-
-        json_response = json.loads(response.text)
-        if not isinstance(json_response, dict) or 'data' not in json_response or not isinstance(json_response['data'], dict) or 'response' not in json_response['data'] or json_response['data']['response'] is None:
-            return []
-
-        result = []
-
-        assert('data' in json_response.keys())
-        assert('response' in json_response['data'].keys())
-
-        for product in json_response["data"]["response"][0:5]:
-            result.append({
-                "product": product["description"],
-                "times": product["times"]
-            })
-        return result"""
-
+    # Se agrega para obtener los productos más vendidos en un rango de fechas y la cantidad de veces que se vendieron, num_productos es el número de productos que se desea mostrar en la lista.
     @staticmethod
     def load_most_selled_products_for_date(fecha_inicio, fecha_fin, num_products):
         response = Repository.get_most_selled_products_for_date(fecha_inicio, fecha_fin)
@@ -277,26 +256,3 @@ class DashboardController:
                 })
 
         return result
-
-
-    """@staticmethod
-    def load_most_selled_products(fecha_inicio, fecha_fin):
-        all_products = Repository.get_all_products()
-        if all_products.status_code != 200:
-            return []
-
-        result = []
-        json_response = json.loads(all_products.text)
-        print("response: " + str(json_response))
-        
-        assert 'data' in json_response.keys()
-        assert 'response' in json_response['data'].keys()
-
-        for product in json_response["data"]["response"]:
-            if fecha_inicio <= product["date"] <= fecha_fin:
-                result.append({
-                    "product": product["description"],
-                    "times": product["times"]
-                })
-
-        return result"""

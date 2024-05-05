@@ -170,11 +170,11 @@ class Queries:
             }
         """
 
-    @staticmethod
-    def get_most_selled_products_for_date(start_date,end_date):
-        return '''
+    #Querry para obtener los productos y la cantidad de ellos más vendidos en un rango de fechas.
+    def get_most_selled_products_for_date(start_date, end_date):
+        query = '''
             {
-                var(func: has(invoice)) @filter(ge(date, "'''+start_date+'''") AND le(date, "'''+end_date+'''")) {
+                var(func: has(invoice)) @filter(ge(date, "%s") AND le(date, "%s")) {
                     product as ~bought
                 }
 
@@ -191,7 +191,16 @@ class Queries:
                     times: val(c)
                 }
             }
-        '''
+            ''' % (start_date, end_date)
+        return query
+
+
+
+
+
+
+
+
 
 
 
