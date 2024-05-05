@@ -18,6 +18,8 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 
+from ArquiImplementacion1.cliente.src.controller.dashboard_controller import DashboardController
+
 app = dash.Dash(
     external_stylesheets=[dbc.themes.LUX],
     meta_tags=[
@@ -60,5 +62,12 @@ def update_product_list(n_clicks, start_date, end_date, num_products):
     if n_clicks > 0:
         most_selled_products = MostSelledProductsForDate()
         return most_selled_products._update_product_list(start_date, end_date, num_products)
+    else:
+        return None
+
+def update_count_product(input1,input2):
+    if input1 is not None and input2 is not None:
+        productosVendidos = DashboardController.get_productos_porFecha1y2(input1,input2)
+        return productosVendidos["Productos vendidos: "]
     else:
         return None
