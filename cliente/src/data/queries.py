@@ -15,6 +15,19 @@
 class Queries:
 
     @staticmethod
+    def get_productos_porFecha1y2(start_period, end_period):
+        return """
+                {
+                    var(func: has(invoice)) @filter(between(date, "%s", "%s")) {
+                        t as quantity
+                    }
+                    response() {
+                        count: sum(val(t))
+                    }
+                }
+            """ % (start_period, end_period)
+
+    @staticmethod
     def get_total_products():
         return """
             {

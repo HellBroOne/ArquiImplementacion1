@@ -16,6 +16,12 @@ from src.data.queries import Queries
 
 class Repository:
 
+    # obtener la respuesta de la consulta de cantidad de productos vendidos
+    @staticmethod
+    def get_productos_porFecha1y2(start_period, end_period):
+        response = Provider.execute(Queries.get_productos_porFecha1y2(start_period, end_period))
+        return response
+
     @staticmethod
     def get_products():
         response = Provider.execute(Queries.get_total_products())
