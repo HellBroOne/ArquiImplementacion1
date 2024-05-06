@@ -19,6 +19,8 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 
+from src.controller.dashboard_controller import DashboardController
+
 app = dash.Dash(
     external_stylesheets=[dbc.themes.LUX],
     meta_tags=[
@@ -80,4 +82,11 @@ def update_sales_list(n_clicks, start_date, end_date):
         return sales_ind._update_sales_list(start_date, end_date)
     else:
        # print("no callback")
+        return None
+
+def update_count_product(input1,input2):
+    if input1 is not None and input2 is not None:
+        productosVendidos = DashboardController.get_productos_porFecha1y2(input1,input2)
+        return productosVendidos["Productos vendidos: "]
+    else:
         return None

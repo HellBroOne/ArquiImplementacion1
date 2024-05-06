@@ -14,6 +14,22 @@ from src.data.repository import Repository
 import json
 
 class DashboardController:
+    @staticmethod
+    def get_productos_porFecha1y2(start_period, end_period):
+        response = Repository.get_productos_porFecha1y2(start_period, end_period)
+        if response.status_code != 200:
+            return {"cantidad_productos_vendidos": 0}
+
+        json_response = json.loads(response.text)
+
+        assert ('data' in json_response.keys())
+        assert ('response' in json_response['data'].keys())
+        if json_response["data"]["response"][0]["count"] is None:
+            return {"cantidad_productos_vendidos": "0"}
+
+        return {
+            "cantidad_productos_vendidos": json_response["data"]["response"][0]["count"]
+        }
 
     @staticmethod
     def load_products():
@@ -219,28 +235,7 @@ class DashboardController:
             })
         return result
 
-    """@staticmethod
-    def load_most_selled_products_for_date(date_from, date_to):
-        response = Repository.get_most_selled_products_for_date(date_from, date_to)
-        if response is None or response.status_code != 200:
-            return []
-
-        json_response = json.loads(response.text)
-        if not isinstance(json_response, dict) or 'data' not in json_response or not isinstance(json_response['data'], dict) or 'response' not in json_response['data'] or json_response['data']['response'] is None:
-            return []
-
-        result = []
-
-        assert('data' in json_response.keys())
-        assert('response' in json_response['data'].keys())
-
-        for product in json_response["data"]["response"][0:5]:
-            result.append({
-                "product": product["description"],
-                "times": product["times"]
-            })
-        return result"""
-
+    # Se agrega para obtener los productos más vendidos en un rango de fechas y la cantidad de veces que se vendieron, num_productos es el número de productos que se desea mostrar en la lista.
     @staticmethod
     def load_most_selled_products_for_date(fecha_inicio, fecha_fin, num_products):
         response = Repository.get_most_selled_products_for_date(fecha_inicio, fecha_fin)
@@ -295,25 +290,36 @@ class DashboardController:
         print(result)
         return result
 
-
-    """@staticmethod
-    def load_most_selled_products(fecha_inicio, fecha_fin):
-        all_products = Repository.get_all_products()
-        if all_products.status_code != 200:
-            return []
-
-        result = []
-        json_response = json.loads(all_products.text)
-        print("response: " + str(json_response))
+    #Sales en un periodo específico.
+    @staticmethod
+    def load_sales_date(fecha_inicio, fecha_fin):
+        response = Repository.get_sales_by_date(fecha_inicio, fecha_fin)
+        if response.status_code != 200:
+            return {"sales": 0}
         
-        assert 'data' in json_response.keys()
-        assert 'response' in json_response['data'].keys()
+        json_response = json.loads(response.text)
+        
+        assert('data' in json_response.keys())
+        assert('response' in json_response['data'].keys())
+        if json_response["data"]["response"][0]["total"] is None:
+            return {"sales":"0"}
 
-        for product in json_response["data"]["response"]:
-            if fecha_inicio <= product["date"] <= fecha_fin:
-                result.append({
-                    "product": product["description"],
-                    "times": product["times"]
-                })
+        return {
+            "sales": json_response["data"]["response"][0]["total"]
+        }
+    
+    #Orders en un periodo específico.
+    @staticmethod
+    def load_orders_date(fecha_inicio, fecha_fin):
+        response = Repository.get_orders_by_date(fecha_inicio, fecha_fin)
+        if response.status_code != 200:
+            return {"orders": 0}
+        
+        json_response = json.loads(response.text)
 
-        return result"""
+        assert('data' in json_response.keys())
+        assert('response' in json_response['data'].keys())
+
+        return {
+            "orders": json_response["data"]["response"][0]["count"]
+        }

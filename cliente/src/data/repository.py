@@ -16,6 +16,12 @@ from src.data.queries import Queries
 
 class Repository:
 
+    # obtener la respuesta de la consulta de cantidad de productos vendidos
+    @staticmethod
+    def get_productos_porFecha1y2(start_period, end_period):
+        response = Provider.execute(Queries.get_productos_porFecha1y2(start_period, end_period))
+        return response
+
     @staticmethod
     def get_products():
         response = Provider.execute(Queries.get_total_products())
@@ -71,11 +77,7 @@ class Repository:
         response = Provider.execute(Queries.get_most_selled_products())
         return response
 
-    """@staticmethod
-    def get_most_selled_products_for_date(date_from, date_to):
-        response = Provider.execute(Queries.get_most_selled_products_for_date(date_from, date_to))
-        return response"""
-
+    # obtener el resultado de la consulta para los productos vendidos en un rango de fechas
     @staticmethod
     def get_most_selled_products_for_date(fecha_inicio, fecha_fin):
         response = Provider.execute(Queries.get_most_selled_products_for_date(fecha_inicio, fecha_fin))
@@ -91,7 +93,16 @@ class Repository:
         print(response)
         return response
 
-    """@staticmethod
-    def get_all_products():
-        response = Provider.execute(Queries.get_all_products())
-        return response"""
+    #Sales en un periodo específico 
+    @staticmethod
+    def get_sales_by_date(fecha_inicio, fecha_fin):
+        response = Provider.execute(Queries.get_sales_by_date(fecha_inicio, fecha_fin))
+        print(response)
+        return response
+    
+    #Orders en un periodo específico 
+    @staticmethod
+    def get_orders_by_date(fecha_inicio, fecha_fin):
+        response = Provider.execute(Queries.get_total_orders_date(fecha_inicio, fecha_fin))
+        print(response)
+        return response

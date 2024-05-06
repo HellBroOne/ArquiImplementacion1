@@ -15,6 +15,19 @@
 class Queries:
 
     @staticmethod
+    def get_productos_porFecha1y2(start_period, end_period):
+        return """
+                {
+                    var(func: has(invoice)) @filter(between(date, "%s", "%s")) {
+                        t as quantity
+                    }
+                    response() {
+                        count: sum(val(t))
+                    }
+                }
+            """ % (start_period, end_period)
+
+    @staticmethod
     def get_total_products():
         return """
             {
@@ -157,11 +170,11 @@ class Queries:
             }
         """
 
-    @staticmethod
-    def get_most_selled_products_for_date(start_date,end_date):
-        return '''
+    #Querry para obtener los productos y la cantidad de ellos más vendidos en un rango de fechas.
+    def get_most_selled_products_for_date(start_date, end_date):
+        query = '''
             {
-                var(func: has(invoice)) @filter(ge(date, "'''+start_date+'''") AND le(date, "'''+end_date+'''") ) {
+                var(func: has(invoice)) @filter(ge(date, "%s") AND le(date, "%s")) {
                     product as ~bought
                 }
 
@@ -178,7 +191,35 @@ class Queries:
                     times: val(c)
                 }
             }
-        '''
+            ''' % (start_date, end_date)
+        return query
+
+
+    #query que filtra los datos de las ventas para que se muestren solamente
+    #los que estan entre dos fechas o periodos especificados 
+    @staticmethod
+    def get_sales_by_date(fecha_inicio, fecha_fin):
+        return """
+            {
+                var(func: has(date)) @filter(ge(date, "{fecha_inicio}") AND le(date, "{fecha_fin}")) {
+                    t as total
+                }
+                response() {
+                    total: sum(val(t))
+                }
+            }
+        """
+    #query que filtra los datos de las ventas para que se muestren solamente
+    #los que estan entre dos fechas o periodos especificados 
+    @staticmethod
+    def get_total_orders_date(fecha_inicio, fecha_fin):
+        return """
+            {
+                response(func: has(invoice)) @filter(between(date, "{fecha_inicio}", "{fecha_fin}")) {
+                    count(uid)
+                }
+            }
+        """
     
     #query que permite obtener las ventas por region
     #filtrandolas por fecha 
@@ -197,6 +238,13 @@ class Queries:
         }
         }
         '''
+    
+
+
+
+
+
+
 
 
 
