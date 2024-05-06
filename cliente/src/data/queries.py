@@ -195,6 +195,32 @@ class Queries:
         return query
 
 
+    #query que filtra los datos de las ventas para que se muestren solamente
+    #los que estan entre dos fechas o periodos especificados 
+    @staticmethod
+    def get_sales_by_date(fecha_inicio, fecha_fin):
+        return """
+            {
+                var(func: has(date)) @filter(ge(date, "{fecha_inicio}") AND le(date, "{fecha_fin}")) {
+                    t as total
+                }
+                response() {
+                    total: sum(val(t))
+                }
+            }
+        """
+    #query que filtra los datos de las ventas para que se muestren solamente
+    #los que estan entre dos fechas o periodos especificados 
+    @staticmethod
+    def get_total_orders_date(fecha_inicio, fecha_fin):
+        return """
+            {
+                response(func: has(invoice)) @filter(between(date, "{fecha_inicio}", "{fecha_fin}")) {
+                    count(uid)
+                }
+            }
+        """
+    
 
 
 
