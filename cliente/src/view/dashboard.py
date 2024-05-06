@@ -15,6 +15,7 @@ from src.controller.dashboard_controller import DashboardController
 import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import dcc, html
+from datetime import datetime
 
 class Dashboard:
 

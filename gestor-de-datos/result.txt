@@ -1,4 +1,4 @@
-...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\Tarea1Conda\gestor-de-datos\result\csv.json processed
-...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\Tarea1Conda\gestor-de-datos\result\xml.json processed
-...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\Tarea1Conda\gestor-de-datos\result\htm.json processed
-...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\Tarea1Conda\gestor-de-datos\result\txt.json processed
+...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\RepoEquipo\ArquiImplementacion1\gestor-de-datos\result\csv.json processed
+...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\RepoEquipo\ArquiImplementacion1\gestor-de-datos\result\xml.json processed
+...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\RepoEquipo\ArquiImplementacion1\gestor-de-datos\result\htm.json processed
+...file C:\Users\Andres Contreras\OneDrive - uaz.edu.mx\Escritorio\UAZ\Semestre6\Arquitectura\TareasImplementaciones\RepoEquipo\ArquiImplementacion1\gestor-de-datos\result\txt.json processed
