@@ -123,7 +123,7 @@ class Dashboard:
             dark=False,
         )
 
-        def _header_subtitle2(self, subtitle,id):
+    def _header_subtitle2(self, subtitle,id):
         return html.Div(
             [
                 html.P(
