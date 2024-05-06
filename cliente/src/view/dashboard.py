@@ -32,6 +32,11 @@ class Dashboard:
                 html.Br(),
                 self._highlights_cards(),
                 html.Br(),
+                self._header_subtitle2("Sales for date range", 'id-titulo2'),
+                html.Div(html.Hr()),
+                self._date_picker(),
+                self.sales_for_date_range(),
+                html.Br(),
                 html.Div(
                     [
                         dbc.Row(
@@ -117,6 +122,44 @@ class Dashboard:
             dark=False,
         )
 
+        def _header_subtitle2(self, subtitle,id):
+        return html.Div(
+            [
+                html.P(
+                    subtitle,
+                    className="lead",
+                ),
+            ],
+            id=id,
+        )
+
+    def _date_picker(self):
+        return dcc.DatePickerRange(
+            id='date-picker',
+            start_date=datetime(2024, 1, 1),
+            end_date=datetime(2024, 10, 30),
+            display_format='YYYY-MM-DD'
+        )
+    
+    def sales_for_date_range(self):
+        return html.Div(id='sales-list')
+
+    def sales_by_date(self, fecha_inicio, fecha_fin):
+        #orders = DashboardController.load_orders_date(fecha_inicio, fecha_fin)
+        sales_by_date = DashboardController.load_sales_date(fecha_inicio, fecha_fin)
+
+        if not sales_by_date:
+            return html.Div("No orders available.")
+
+        sales_list = [
+            dbc.Row(
+                [
+                    html.H5(f"- {sales['sales']} [{sales['times']} time(s) sold]", style={"font-weight": "bold"}),
+                ]
+            )
+            for sales in sales_by_date
+        ]
+    
     def _header_title(self, title):
         return dbc.Row(
             [
