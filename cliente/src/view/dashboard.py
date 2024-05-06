@@ -15,7 +15,7 @@ from src.controller.dashboard_controller import DashboardController
 import dash_bootstrap_components as dbc
 import plotly.express as px
 from dash import Dash, dcc, html, Input, Output, State
-from datetime import date
+from datetime import datetime, date
 
 class Dashboard:
 
@@ -34,50 +34,22 @@ class Dashboard:
                 self._highlights_cards(),
                 html.Br(),
                 self._header_subtitle2("Sales for date range", 'id-titulo2'),
-                html.Div([
-                    "Selecciona una fecha de inicio: ",
-
-                    dcc.DatePickerSingle(
-                        id='input-date-productos-vendidos-1',
-                        min_date_allowed=date(1998, 8, 5),
-                        initial_visible_month=date(2024, 8, 5),
-                        placeholder='Fecha De Inicio',
-                        clearable=True,
-                    ),
-                    " Selecciona fecha final: ",
-
-                    dcc.DatePickerSingle(
-                        id='input-date-productos-vendidos-2',
-                        min_date_allowed=date(1998, 8, 5),
-                        initial_visible_month=date(2024, 8, 6),
-                        placeholder='Fecha De Fin',
-                        clearable=True,
-                    ),
-                ]),
-                self.get_Num_Prod_byDate(),
-                html.Br(), html.Br(),
-                self._header_subtitle2("Reporte financiero por fechas", 'id-titulo2'),
-                html.Div([
-                    "Selecciona una fecha de inicio: ",
-
-                    dcc.DatePickerSingle(
-                        id='input-date-order-sales-1',
-                        min_date_allowed=date(1998, 8, 5),
-                        initial_visible_month=date(2024, 8, 5),
-                        placeholder='Fecha De Inicio',
-                        clearable=True,
-                    ),
-                    " Selecciona una fecha final: ",
-
-                    dcc.DatePickerSingle(
-                        id='input-date-order-sales-2',
-                        min_date_allowed=date(1998, 8, 5),
-                        initial_visible_month=date(2024, 8, 6),
-                        placeholder='Fecha De Fin',
-                        clearable=True,
-                    ),
-                ]),
-                self.sales_by_date(),
+                html.Div(html.Hr()),
+                self._date_picker(),
+                self.sales_for_date_range(),
+                html.Br(),
+                html.Div(
+                    [
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    self._bar_chart_providers_by_location(),
+                                    width=12
+                                ),
+                            ]
+                        )
+                    ]
+                ),
                 html.Br(),
                 html.Div(
                     [
@@ -189,19 +161,6 @@ class Dashboard:
             )
             for sales in sales_by_date
         ]
-
-    def get_Num_Prod_byDate(self):
-        return html.Div(
-            [
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            self._card_value_id("Numero productos", '2', 'numero-productos')
-                        ),
-                    ]
-                ),
-            ]
-        )
     
     def _header_title(self, title):
         return dbc.Row(
@@ -409,3 +368,4 @@ class Dashboard:
                 )
             ]
         )
+

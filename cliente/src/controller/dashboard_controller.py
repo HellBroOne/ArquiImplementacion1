@@ -298,6 +298,7 @@ class DashboardController:
             return {"sales": 0}
         
         json_response = json.loads(response.text)
+        print("response sales date: " + str(json_response))
         
         assert('data' in json_response.keys())
         assert('response' in json_response['data'].keys())

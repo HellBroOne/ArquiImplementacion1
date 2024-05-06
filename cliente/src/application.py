@@ -67,7 +67,7 @@ def update_product_list(n_clicks, start_date, end_date, num_products):
         return most_selled_products._update_product_list(start_date, end_date, num_products)
     else:
         return None
-    
+
 #actualiza el estado de las ventas
 @app.callback(
     Output('sales-list', 'children'),
@@ -90,3 +90,4 @@ def update_count_product(input1,input2):
         return productosVendidos["Productos vendidos: "]
     else:
         return None
+
