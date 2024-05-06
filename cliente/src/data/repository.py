@@ -81,6 +81,15 @@ class Repository:
         response = Provider.execute(Queries.get_most_selled_products_for_date(fecha_inicio, fecha_fin))
         print(response)
         return response
+    
+    #manda a llamar a la consulta de los indicadores de ventas desde el Provider.
+    #haciendola mediante la consulta dada.
+    @staticmethod
+    def get_sales_indicators(fecha_inicio, fecha_fin):
+        print("Trying to execute the query")
+        response = Provider.execute(Queries.get_sales_indicators(fecha_inicio, fecha_fin))
+        print(response)
+        return response
 
     """@staticmethod
     def get_all_products():

@@ -161,7 +161,7 @@ class Queries:
     def get_most_selled_products_for_date(start_date,end_date):
         return '''
             {
-                var(func: has(invoice)) @filter(ge(date, "'''+start_date+'''") AND le(date, "'''+end_date+'''")) {
+                var(func: has(invoice)) @filter(ge(date, "'''+start_date+'''") AND le(date, "'''+end_date+'''") ) {
                     product as ~bought
                 }
 
@@ -178,6 +178,24 @@ class Queries:
                     times: val(c)
                 }
             }
+        '''
+    
+    #query que permite obtener las ventas por region
+    #filtrandolas por fecha 
+    @staticmethod
+    def get_sales_indicators(start_date,end_date):
+        return '''
+        {
+            response(func: has(name)) {
+            name
+            providers: ~belongs {
+                sold: ~sold {
+                    price
+                    quantity: count(bought)
+                }    
+            }
+        }
+        }
         '''
 
 

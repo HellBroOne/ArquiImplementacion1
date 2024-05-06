@@ -259,7 +259,40 @@ class DashboardController:
                     "product": product["description"],
                     "times": product["times"]
                 })
+        return result
+    
+    #obtiene las ventas de las sucursales
+    @staticmethod
+    def load_sales_indicators(fecha_inicio, fecha_fin):
+        response = Repository.get_sales_indicators(fecha_inicio, fecha_fin)
+        if response.status_code != 200:
+            return []
+        result = []
+        json_response = json.loads(response.text)
+        print("loaded!\n")
+        print("response: " + str(json_response))
 
+        assert('data' in json_response.keys())
+        assert('response' in json_response['data'].keys())
+
+        for entry in json_response["data"]["response"]:
+            #agrega el nombre de la localidad al arreglo de location
+            #result["location"].append(entry["name"])
+            #hay que contar el total de ordenes
+            total = 0
+            for sold in entry["providers"]:
+                price = float(sold["sold"][0]["price"])
+                quantity = float(sold["sold"][0]["quantity"])
+                totalprice = price * quantity
+                total += totalprice
+                
+            #result["orders"].append(total)
+            result.append({
+                    "location": entry["name"],
+                    "orders": total
+                })
+        print("response result!>")
+        print(result)
         return result
 
 

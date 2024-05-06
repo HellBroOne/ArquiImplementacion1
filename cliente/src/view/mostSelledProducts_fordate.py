@@ -60,6 +60,7 @@ class MostSelledProductsForDate:
         )
 
     def _top_selling_products(self):
+        print("si")
         return html.Div(id='product-list')
 
     def _update_product_list(self, start_date, end_date, num_products):
@@ -76,7 +77,6 @@ class MostSelledProductsForDate:
             )
             for product in most_selled
         ]
-
         return dbc.Card(
             [
                 dbc.CardBody(

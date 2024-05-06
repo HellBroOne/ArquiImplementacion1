@@ -13,6 +13,7 @@
 #-------------------------------------------------------------------------
 from src.view.dashboard import Dashboard
 from src.view.mostSelledProducts_fordate import MostSelledProductsForDate
+from src.view.salesIndicatorsReport import SalesIndicators
 import dash_bootstrap_components as dbc
 import dash
 from dash import html, dcc
@@ -45,9 +46,11 @@ def display_page(pathname):
     if pathname == '/most-selled-products':
         most_selled_products_for_date_instance = MostSelledProductsForDate()
         return most_selled_products_for_date_instance.document()
+    elif pathname == '/sales-indicators':
+        sales_indicators_instance = SalesIndicators()
+        return sales_indicators_instance.document()
     else:
         return dashboard.document()
-
 
 @app.callback(
     Output('product-list', 'children'),
@@ -61,4 +64,20 @@ def update_product_list(n_clicks, start_date, end_date, num_products):
         most_selled_products = MostSelledProductsForDate()
         return most_selled_products._update_product_list(start_date, end_date, num_products)
     else:
+        return None
+    
+#actualiza el estado de las ventas
+@app.callback(
+    Output('sales-list', 'children'),
+    [Input('search-button', 'n_clicks')],
+    [State('date-picker', 'start_date'),
+    State('date-picker', 'end_date')]
+)
+def update_sales_list(n_clicks, start_date, end_date):
+    if n_clicks > 0:
+        #print("callback made!\n")
+        sales_ind = SalesIndicators()
+        return sales_ind._update_sales_list(start_date, end_date)
+    else:
+       # print("no callback")
         return None
