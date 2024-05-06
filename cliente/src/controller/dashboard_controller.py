@@ -286,8 +286,8 @@ class DashboardController:
                     "location": entry["name"],
                     "orders": total
                 })
-        print("response result!>")
-        print(result)
+        #print("response result!>")
+        #print(result)
         return result
 
     #Sales en un periodo específico.

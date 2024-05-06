@@ -12,6 +12,9 @@
 #
 #-------------------------------------------------------------------------
 
+from datetime import datetime
+
+
 class Queries:
 
     @staticmethod
@@ -238,6 +241,26 @@ class Queries:
         }
         }
         '''
+    
+    '''
+    @staticmethod
+    def get_sales_indicators(start_date,end_date):
+        start_date = datetime.strptime(start_date, '%Y-%m-%dT%H:%M:%S')
+        end_date = datetime.strptime(end_date, '%Y-%m-%dT%H:%M:%S')
+        return 
+        {
+            response(func: has(date)) @filter(ge(date, "%s") AND le(date, "%s")) {
+            name
+            providers: ~belongs {
+                sold: ~sold {
+                    price
+                    quantity: count(bought)
+                }    
+            }
+        }
+        }
+        % (start_date.strftime('%Y-%m-%dT%H:%M:%S'), end_date.strftime('%Y-%m-%dT%H:%M:%S'))
+    '''
     
 
 
