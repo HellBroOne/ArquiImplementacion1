@@ -256,3 +256,37 @@ class DashboardController:
                 })
 
         return result
+
+    #Sales en un periodo específico.
+    @staticmethod
+    def load_sales_date(fecha_inicio, fecha_fin):
+        response = Repository.get_sales_by_date(fecha_inicio, fecha_fin)
+        if response.status_code != 200:
+            return {"sales": 0}
+        
+        json_response = json.loads(response.text)
+        
+        assert('data' in json_response.keys())
+        assert('response' in json_response['data'].keys())
+        if json_response["data"]["response"][0]["total"] is None:
+            return {"sales":"0"}
+
+        return {
+            "sales": json_response["data"]["response"][0]["total"]
+        }
+    
+    #Orders en un periodo específico.
+    @staticmethod
+    def load_orders_date(fecha_inicio, fecha_fin):
+        response = Repository.get_orders_by_date(fecha_inicio, fecha_fin)
+        if response.status_code != 200:
+            return {"orders": 0}
+        
+        json_response = json.loads(response.text)
+
+        assert('data' in json_response.keys())
+        assert('response' in json_response['data'].keys())
+
+        return {
+            "orders": json_response["data"]["response"][0]["count"]
+        }
