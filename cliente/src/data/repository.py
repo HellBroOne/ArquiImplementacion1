@@ -83,3 +83,17 @@ class Repository:
         response = Provider.execute(Queries.get_most_selled_products_for_date(fecha_inicio, fecha_fin))
         print(response)
         return response
+
+    #Sales en un periodo específico 
+    @staticmethod
+    def get_sales_by_date(fecha_inicio, fecha_fin):
+        response = Provider.execute(Queries.get_sales_by_date(fecha_inicio, fecha_fin))
+        print(response)
+        return response
+    
+    #Orders en un periodo específico 
+    @staticmethod
+    def get_orders_by_date(fecha_inicio, fecha_fin):
+        response = Provider.execute(Queries.get_total_orders_date(fecha_inicio, fecha_fin))
+        print(response)
+        return response
