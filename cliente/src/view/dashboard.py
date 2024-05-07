@@ -35,7 +35,7 @@ class Dashboard:
                 html.Br(),
                 self._header_subtitle2("Sales for date range", 'id-titulo2'),
                 html.Div(html.Hr()),
-                self._date_picker(),
+                #self._date_picker(),
                 self.sales_for_date_range(),
                 html.Br(),
                 html.Div(
