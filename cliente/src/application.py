@@ -14,6 +14,7 @@
 from src.view.dashboard import Dashboard
 from src.view.mostSelledProducts_fordate import MostSelledProductsForDate
 from src.view.salesIndicatorsReport import SalesIndicators
+from src.view.numSelledProducts_fordate import NumSelledProductsForDate
 import dash_bootstrap_components as dbc
 import dash
 from dash import html, dcc
@@ -37,7 +38,7 @@ app.layout = dashboard.document()
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
-    html.Div(id='page-content')
+    html.Div(id='page-content'),
 ])
 
 @app.callback(
@@ -51,6 +52,9 @@ def display_page(pathname):
     elif pathname == '/sales-indicators':
         sales_indicators_instance = SalesIndicators()
         return sales_indicators_instance.document()
+    elif pathname == '/num-selled-products':
+        num_selled_products_for_date_instance = NumSelledProductsForDate()
+        return num_selled_products_for_date_instance.document()
     else:
         return dashboard.document()
 
@@ -83,6 +87,22 @@ def update_sales_list(n_clicks, start_date, end_date):
     else:
        # print("no callback")
         return None
+
+
+@app.callback(
+    Output('selling-product-list', 'children'),
+    [Input('consult-button', 'n_clicks')],
+    [State('date-picker', 'start_date'),
+     State('date-picker', 'end_date'),
+     State('num-products-input', 'value')]
+)
+def update_selling_product_list(n_clicks, start_date, end_date, num_products):
+    if n_clicks > 0:
+        num_selled_products_for_date = NumSelledProductsForDate()
+        return num_selled_products_for_date._update_selling_product_list(start_date, end_date, num_products)
+    else:
+        return None
+
 
 def update_count_product(input1,input2):
     if input1 is not None and input2 is not None:

@@ -7,7 +7,7 @@
 # Version: 1.0.0 Abril 2024
 # Descripción:
 #
-#   Este archivo mostrara una lista de los productos mas
+#   Este archivo mostrara el total y una lista de los productos
 #   vendidos en un rango de fechas
 #
 #-------------------------------------------------------------------------
@@ -18,16 +18,16 @@ from dash import dcc, html, Input, Output, State
 from datetime import datetime
 from src.controller.dashboard_controller import DashboardController
 
-class MostSelledProductsForDate:
+class NumSelledProductsForDate:
     def __init__(self):
-            pass
+            self.total_products = 0
 
     def document(self):
         return dbc.Container(
             fluid=True,
             children=[
                 html.Br(),
-                self._header_title("Top Selling Products For Date Range"),
+                self._header_title("Quantity and Selling Products For Date Range"),
                 html.Div(html.Hr()),
                 self._date_picker(),
                 html.Br(),
@@ -40,7 +40,7 @@ class MostSelledProductsForDate:
                 ),
                 html.Button("Consult", id="consult-button", n_clicks=0),
                 html.Br(),
-                self._top_selling_products(),
+                self._selling_products_list(),
             ]
         )
 
@@ -59,12 +59,13 @@ class MostSelledProductsForDate:
             display_format='YYYY-MM-DD'
         )
 
-    def _top_selling_products(self):
-        print("si")
-        return html.Div(id='product-list')
+    def _selling_products_list(self):
+        return html.Div(id='selling-product-list')
 
-    def _update_product_list(self, start_date, end_date, num_products):
-        most_selled, num_products = DashboardController.load_most_selled_products_for_date(start_date, end_date, num_products)
+    def _update_selling_product_list(self, start_date, end_date, num_products):
+        most_selled, total_products = DashboardController.load_most_selled_products_for_date(start_date, end_date, num_products)
+
+        self.total_products = total_products
 
         if not most_selled:
             return html.Div("No products available.")
@@ -72,19 +73,39 @@ class MostSelledProductsForDate:
         product_list = [
             dbc.Row(
                 [
-                    html.H5(f"- {product['product']} [{product['times']} time(s) sold]", style={"font-weight": "bold"}),
+                    html.H5(f"- {product['product']}", style={"font-weight": "bold"}),
                 ]
             )
             for product in most_selled
         ]
-        return dbc.Card(
+        return dbc.Row(
+                    [
+                        dbc.Col(
+                            self._card_value("Products", self.total_products),
+                            width = 2
+                        )
+                    ]
+                ), html.Br(), dbc.Card(
             [
                 dbc.CardBody(
                     [
-                        html.H3("Most sold products For Date Range", className="card-title"),
+                        html.H3("Selling Products For Date Range", className="card-title"),
                         html.Br(),
                         html.Div(product_list)
                     ]
                 )
             ]
         )
+
+    def _card_value(self, label, value):
+            return dbc.Card(
+                [
+                    dbc.CardBody(
+                        [
+                            html.H2(value, className="card-title"),
+                        ]
+                    ),
+                    dbc.CardFooter(label),
+                ]
+            )
+

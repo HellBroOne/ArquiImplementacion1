@@ -114,9 +114,9 @@ class Dashboard:
         return dbc.NavbarSimple(
             children=[
                 dbc.NavItem(dbc.NavLink("Home", href="/")),
-                dbc.NavItem(dbc.NavLink("Most Selled Products by Date", href="/most-selled-products")),
-                # Puedes agregar más enlaces al menú aquí
+                dbc.NavItem(dbc.NavLink("Most Selled Products by Date", href="/most-selled-products")), #Reporte de productos más vendidos
                 dbc.NavItem(dbc.NavLink("Sales Indicators by Date", href="/sales-indicators")), #reporte de indicadores de ventas
+                dbc.NavItem(dbc.NavLink("Number of Selled Products by Date", href="/num-selled-products")), #reporte de cantidad de productos vendidos
             ],
             brand="Sales Report",
             brand_href="#",

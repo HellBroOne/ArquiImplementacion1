@@ -240,12 +240,14 @@ class DashboardController:
     def load_most_selled_products_for_date(fecha_inicio, fecha_fin, num_products):
         response = Repository.get_most_selled_products_for_date(fecha_inicio, fecha_fin)
         if response.status_code != 200:
-            return []
+            return [], 0
 
         result = []
 
         json_response = json.loads(response.text)
         print("response: " + str(json_response))
+
+        total_products = 0
 
         if 'data' in json_response and 'topProduct' in json_response['data']:
             top_products = json_response['data']['topProduct']
@@ -254,8 +256,12 @@ class DashboardController:
                     "product": product["description"],
                     "times": product["times"]
                 })
-        return result
-    
+            total_products = len(top_products)
+
+        return result, total_products
+
+
+
     #obtiene las ventas de las sucursales
     @staticmethod
     def load_sales_indicators(fecha_inicio, fecha_fin):
