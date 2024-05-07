@@ -12,6 +12,9 @@
 #
 #-------------------------------------------------------------------------
 
+from datetime import datetime
+
+
 class Queries:
 
     @staticmethod
@@ -197,18 +200,18 @@ class Queries:
 
     #query que filtra los datos de las ventas para que se muestren solamente
     #los que estan entre dos fechas o periodos especificados 
-    @staticmethod
-    def get_sales_by_date(fecha_inicio, fecha_fin):
-        return """
-            {
-                var(func: has(date)) @filter(ge(date, "{fecha_inicio}") AND le(date, "{fecha_fin}")) {
-                    t as total
-                }
-                response() {
-                    total: sum(val(t))
-                }
-            }
-        """
+    #@staticmethod
+    #def get_sales_by_date(fecha_inicio, fecha_fin):
+        #return """
+            #{
+                #var(func: has(date)) @filter(ge(date, "{fecha_inicio}") AND le(date, "{fecha_fin}")) {
+                   # t as total
+               # }
+             #   response() {
+                  #  total: sum(val(t))
+               # }
+         #   }
+      #  """
     #query que filtra los datos de las ventas para que se muestren solamente
     #los que estan entre dos fechas o periodos especificados 
     @staticmethod
@@ -225,7 +228,7 @@ class Queries:
     #filtrandolas por fecha 
     @staticmethod
     def get_sales_indicators(start_date,end_date):
-        return '''
+        query = '''
         {
             response(func: has(name)) {
             name
@@ -233,12 +236,37 @@ class Queries:
                 sold: ~sold {
                     price
                     quantity: count(bought)
-                }    
+                }
             }
         }
         }
         '''
+        return query
     
+
+    #obtiene las ventas por fecha
+    def get_sales_by_date(start_date, end_date):
+        query = '''
+            {
+                var(func: has(invoice)) @filter(ge(date, "%s") AND le(date, "%s")) {
+                    product as ~bought
+                }
+
+                var(func: uid(product)) {
+                    purchasedProduct as uid
+                }
+
+                product(func: uid(purchasedProduct)){
+					description
+                    price
+                    quantity: count(bought)
+                }
+            }
+            ''' % (start_date, end_date)
+        return query
+    
+    #2024-01-30
+    #2024-10-30
 
 
 

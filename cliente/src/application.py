@@ -15,6 +15,7 @@ from src.view.dashboard import Dashboard
 from src.view.mostSelledProducts_fordate import MostSelledProductsForDate
 from src.view.salesIndicatorsReport import SalesIndicators
 from src.view.numSelledProducts_fordate import NumSelledProductsForDate
+from src.view.salesReport import SalesByDate
 import dash_bootstrap_components as dbc
 import dash
 from dash import html, dcc
@@ -55,6 +56,9 @@ def display_page(pathname):
     elif pathname == '/num-selled-products':
         num_selled_products_for_date_instance = NumSelledProductsForDate()
         return num_selled_products_for_date_instance.document()
+    elif pathname == '/sales-report':
+        sales_instance = SalesByDate()
+        return sales_instance.document()
     else:
         return dashboard.document()
 
@@ -72,7 +76,7 @@ def update_product_list(n_clicks, start_date, end_date, num_products):
     else:
         return None
 
-#actualiza el estado de las ventas
+#actualiza el estado de los indicadores de las ventas
 @app.callback(
     Output('sales-list', 'children'),
     [Input('search-button', 'n_clicks')],
@@ -86,6 +90,22 @@ def update_sales_list(n_clicks, start_date, end_date):
         return sales_ind._update_sales_list(start_date, end_date)
     else:
        # print("no callback")
+        return None
+    
+#actualiza el estado de las ventas
+@app.callback(
+    Output('sales-date-list', 'children'),
+    [Input('get-sale-button', 'n_clicks')],
+    [State('date-picker', 'start_date'),
+    State('date-picker', 'end_date')]
+)
+def update_sales_report(n_clicks, start_date, end_date):
+    if n_clicks > 0:
+        print("callback made!\n")
+        sales_dat = SalesByDate()
+        return sales_dat._update_salesdate_list(start_date, end_date)
+    else:
+        print("no callback")
         return None
 
 
