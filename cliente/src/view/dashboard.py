@@ -117,6 +117,7 @@ class Dashboard:
                 dbc.NavItem(dbc.NavLink("Most Selled Products by Date", href="/most-selled-products")),
                 # Puedes agregar más enlaces al menú aquí
                 dbc.NavItem(dbc.NavLink("Sales Indicators by Date", href="/sales-indicators")), #reporte de indicadores de ventas
+                dbc.NavItem(dbc.NavLink("Sales Report by Date", href="/sales-report")), #reporte de ventas
             ],
             brand="Sales Report",
             brand_href="#",

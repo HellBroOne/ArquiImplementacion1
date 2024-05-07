@@ -92,14 +92,15 @@ class Repository:
         response = Provider.execute(Queries.get_sales_indicators(fecha_inicio, fecha_fin))
         print(response)
         return response
-
+    
     #Sales en un periodo específico 
     @staticmethod
-    def get_sales_by_date(fecha_inicio, fecha_fin):
+    def get_sales_date(fecha_inicio, fecha_fin):
+        print("made: ")
         response = Provider.execute(Queries.get_sales_by_date(fecha_inicio, fecha_fin))
         print(response)
         return response
-    
+
     #Orders en un periodo específico 
     @staticmethod
     def get_orders_by_date(fecha_inicio, fecha_fin):
